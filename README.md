@@ -36,5 +36,5 @@ mvn test
    - Ожидание: 400 Bad Request
 
 **Запуск**:
-```bash
+bash
 mvn test -Dtest=CdrAuthTest
