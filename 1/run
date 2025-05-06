@@ -1,0 +1,8 @@
+#Запуск всех тестов
+mvn test
+
+#Запуск тестов конкретного сервиса
+mvn test -Dtest=CrmApiTest
+
+#С генерацией отчета
+mvn surefire-report:report
