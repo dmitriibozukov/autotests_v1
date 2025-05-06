@@ -59,4 +59,27 @@ mvn test -Dtest=CdrAuthTest
 2. **Превышение лимита**
    - Доплата по тарифу "Классика"
 
+## 4 CDR Generator for Nexign Bootcamp
 
+### Описание
+Генератор тестовых данных в формате CDR (Call Data Record) для проверки биллинговой системы. Создает:
+- Валидные записи звонков (100 записей)
+- Невалидные записи с различными ошибками (20 записей)
+
+### Ссылка на Colab
+https://colab.research.google.com/drive/1UmJfC0Hz3tqNZL5U7VpkVNwEMyx4iK_v#scrollTo=lWGDjsHM8vob
+### Файлы
+- `valid_cdr.csv` - корректные данные
+- `invalid_cdr.csv` - данные с ошибками
+- `cdr_test_data.zip` - архив с обоими файлами
+
+### Технологии
+- Python 3
+- Pandas
+- Google Colab
+
+### Параметры
+В коде можно настроить:
+- Количество записей
+- Диапазон длительности звонков
+- Коды операторов
