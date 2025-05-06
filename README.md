@@ -68,15 +68,11 @@ mvn test -Dtest=CdrAuthTest
 
 ### Ссылка на Colab
 https://colab.research.google.com/drive/1UmJfC0Hz3tqNZL5U7VpkVNwEMyx4iK_v#scrollTo=lWGDjsHM8vob
+
 ### Файлы
 - `valid_cdr.csv` - корректные данные
 - `invalid_cdr.csv` - данные с ошибками
 - `cdr_test_data.zip` - архив с обоими файлами
-
-### Технологии
-- Python 3
-- Pandas
-- Google Colab
 
 ### Параметры
 В коде можно настроить:
