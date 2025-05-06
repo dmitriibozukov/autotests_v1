@@ -1,0 +1,5 @@
+brt:
+  auth:
+    username: cdr_user
+    password: password
+  endpoint: /api/cdr/upload
