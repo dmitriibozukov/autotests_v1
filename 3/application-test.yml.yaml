@@ -1,0 +1,5 @@
+testing:
+  brt:
+    url: http://localhost:8080
+  hrs:
+    url: http://localhost:8081
