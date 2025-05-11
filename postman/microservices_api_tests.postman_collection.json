@@ -1,0 +1,175 @@
+{
+  "info": {
+    "name": "Microservices API Tests",
+    "description": "Набор API тестов для микросервисов CRM, BRT, HRS, CDR.\n\n1. Тест авторизации CRM\n2. Проверка загрузки CDR в BRT\n3. Проверка расчета тарификации в HRS\n4. Проверка отображения баланса в CRM\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "CRM - Авторизация",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"test\", \"password\": \"test\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/crm/login",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "crm",
+            "login"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Есть токен\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"token\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "BRT - Загрузка CDR",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"call_id\": \"123\", \"duration\": 60, \"timestamp\": \"2025-05-11T10:00:00Z\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/brt/cdr",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "brt",
+            "cdr"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"CDR принят\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "HRS - Тарификация",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8082/hrs/tariffication?call_id=123",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "hrs",
+            "tariffication"
+          ],
+          "query": [
+            {
+              "key": "call_id",
+              "value": "123"
+            }
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Есть цена\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"price\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "CRM - Баланс абонента",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/crm/balance?user_id=1",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "crm",
+            "balance"
+          ],
+          "query": [
+            {
+              "key": "user_id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Баланс отображается\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"balance\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
